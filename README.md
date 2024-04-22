@@ -1,7 +1,7 @@
 # S.A.R.A.S.W.A.T.I. :
 
 <p align="center">
-  <img src="" alt="Concept Image">
+  <img src="https://raw.githubusercontent.com/SamMajumder/SARASWATI/main/SARASWATI.webp" alt="Concept Image">
   <br>
   Created using DALL-E by OpenAI
 </p>
