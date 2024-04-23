@@ -14,7 +14,7 @@ def get_instrument_names():
 
 
 app = ctk.CTk()
-app.title('Data Sonification App')
+app.title('SARASWATI-AI')
 app.geometry('1200x800')
 ctk.set_appearance_mode("dark")  # Enable dark mode
 

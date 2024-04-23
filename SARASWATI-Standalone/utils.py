@@ -10,17 +10,9 @@ import numpy as np
 import pretty_midi
 import music21
 import os 
-import torch
-import torchaudio
-import audiocraft
-from audiocraft.models import MusicGen
-import tensorflow as tf
-
 import tkinter as tk
 import customtkinter as ctk
 from tkinter import ttk
-import threading
-from tkinter import filedialog
 
 
 ### 

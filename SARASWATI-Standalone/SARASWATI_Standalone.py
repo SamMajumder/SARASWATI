@@ -5,15 +5,7 @@ Created on Sun Apr 21 19:15:21 2024
 @author: Dr. M
 """
 
-
-import tkinter as tk
-import customtkinter as ctk
-from tkinter import ttk
-import threading
-from tkinter import filedialog
-import pandas as pd 
-import os
-from utils import *
+from utils import * 
 
 
 # Function to get all instrument names from pretty_midi
@@ -23,7 +15,7 @@ def get_instrument_names():
 
 
 app = ctk.CTk()
-app.title('Data Sonification App')
+app.title('SARASWATI')
 app.geometry('800x600')
 ctk.set_appearance_mode("dark")  # Enable dark mode
 
