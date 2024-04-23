@@ -28,6 +28,8 @@ Hosts the Streamlit-based web application, which is split into three main pages:
 - **SARASWATI**: Allows users to interact with the standard sonification tools via a web interface.
 - **SARASWATI-AI**: Integrates AI functionalities for a more advanced sonification and music synthesis experience.
 
+Check out the app here: [SARASWATI Streamlit App](https://saraswati-ai.streamlit.app/)
+
 ## Getting Started
 Instructions for setting up and running the various components of SARASWATI. This section will include steps to install dependencies, as well as how to launch both the standalone and Streamlit applications.
 
@@ -53,3 +55,27 @@ Instructions for setting up and running the various components of SARASWATI. Thi
 For support, feedback, or inquiries, please reach out to the SARASWATI development team at [sambadimajumder@gmail.com](mailto:sambadimajumder@gmail.com). We are dedicated to improving the tool and fostering a vibrant community around data sonification.
 
 ## Acknowledgments
+
+A big thanks to the developers of the Python packages that were used to create this tool. This work would not be possible without the hard work of these amazing Python developers.
+
+Thank you so much: 
+
+    - **pandas & numpy**:
+      - McKinney, W. (2010). Data Structures for Statistical Computing in Python. In *Proceedings of the 9th Python in Science Conference*.
+      - Harris, C. R., Millman, K. J., van der Walt, S. J., et al. (2020). Array programming with NumPy. *Nature*, 585(7825), 357–362. https://doi.org/10.1038/s41586-020-2649-2
+
+    - **pretty_midi**:
+      - Colin Raffel and Daniel P. W. Ellis. (2014). Intuitive Analysis, Creation and Manipulation of MIDI Data with pretty_midi. In *Late-Breaking Demo Session of the 15th International Society for Music Information Retrieval Conference*.
+
+    - **music21**:
+      - Cuthbert, M. S., & Ariza, C. (2010). music21: A Toolkit for Computer-Aided Musicology and Symbolic Music Data. In *Proceedings of the 11th International Society for Music Information Retrieval Conference*.
+
+    - **PyTorch & torchaudio**:
+      - Paszke, A., Gross, S., Massa, F., et al. (2019). PyTorch: An Imperative Style, High-Performance Deep Learning Library. In *Advances in Neural Information Processing Systems 32*.
+      - Vincent, J., & Bittner, R. M. (2021). torchaudio: Building Blocks for Audio and Speech Processing. *GitHub repository*. https://github.com/pytorch/audio
+
+    - **TensorFlow**:
+      - Abadi, M., Agarwal, A., Barham, P., et al. (2016). TensorFlow: Large-Scale Machine Learning on Heterogeneous Distributed Systems. *arXiv preprint arXiv:1603.04467*. https://www.tensorflow.org/
+
+    - **audiocraft & MusicGen**:
+      - Copet, J., Kreuk, F., Gat, I., Remez, T., Kant, D., Synnaeve, G., Adi, Y., & Défossez, A. (2023). Simple and Controllable Music Generation. In *Proceedings of the Thirty-seventh Conference on Neural Information Processing Systems*.

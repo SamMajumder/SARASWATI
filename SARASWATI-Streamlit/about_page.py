@@ -46,7 +46,7 @@ def about_page():
     ## Acknowledgements
     
     ### Bibliography
-    A big thanks to the developers of the packages used to create this tool. This work would not exist without these Python packages and models. 
+    A big thanks to the developers of the Python packages that were used to create this tool. This work would not be possible without the hard work of these amazing Python developers. 
     Thank you so much: 
     
     - **pandas & numpy**:
