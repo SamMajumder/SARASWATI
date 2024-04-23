@@ -47,6 +47,8 @@ Instructions for setting up and running the various components of SARASWATI. Thi
 
 ### SARASWATI-Streamlit
 - **Web Access**: Access the application through any web browser by navigating to the hosted URL or running it locally via Streamlit.
+Check out the app here: [SARASWATI Streamlit App](https://saraswati-ai.streamlit.app/)
+
 - **Interactive GUI**: Interact with sliders, buttons, and fields to customize the sonification process.
 - **Live Output**: Listen to the sonified output or download the generated music files for further use.
 
@@ -58,7 +60,7 @@ For support, feedback, or inquiries, please reach out to the SARASWATI developme
 
 A big thanks to the developers of the Python packages that were used to create this tool. This work would not be possible without the hard work of these amazing Python developers.
 
-Thank you so much: 
+Thank you so much:
 
     - **pandas & numpy**:
       - McKinney, W. (2010). Data Structures for Statistical Computing in Python. In *Proceedings of the 9th Python in Science Conference*.
