@@ -11,7 +11,7 @@ import zipfile
 from io import BytesIO
 
 def run_saraswati_ai():
-    st.title('TabSonifyAI: Advanced Data Sonification Tool with Style Customization')
+    st.title('SARASWATI AI')
 
     uploaded_file = st.file_uploader("Upload your CSV file", type=["csv"])
     if uploaded_file is not None:

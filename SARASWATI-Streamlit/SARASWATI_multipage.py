@@ -21,7 +21,7 @@ def main():
     # Sidebar navigation
     #st.sidebar.title('Navigation')
     selected = option_menu("Menu", ["About", "SARASWATI", "SARASWATI-AI"],
-                           icons=['info-circle', 'music-note-beamed', 'music-note-list'],
+                           icons=['info-circle', 'music-note-beamed', 'android2'],
                            menu_icon="cast", default_index=0)
 
     if selected == "About":

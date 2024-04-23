@@ -1,0 +1,12 @@
+pandas
+numpy
+pretty_midi
+music21
+torch
+torchaudio
+audiocraft
+tensorflow
+streamlit
+zipfile37  
+streamlit-option-menu
+
