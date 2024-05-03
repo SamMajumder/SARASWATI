@@ -160,7 +160,7 @@ def generate_music(description, duration, file_path=None):
         output = output.squeeze(0)  # Squeeze out the first dimension if it's 3D
 
     if file_path:
-        torchaudio.save(file_path, output, 32000)  # Assuming the sample rate is 32000 Hz
+        torchaudio.save(file_path, output, 32000,format='wav')  # Assuming the sample rate is 32000 Hz
     
     return output
 
@@ -189,7 +189,7 @@ def continue_music(existing_waveform, continuation_duration, prompt_duration, sa
 def save_audio(samples, sample_rate=32000, file_path="output.wav"):
     if samples.dim() == 3:
         samples = samples[0]
-    torchaudio.save(file_path, samples, sample_rate)
+    torchaudio.save(file_path, samples, sample_rate, format='wav')
 
 
 ### a function to map midi with a max durartion 
