@@ -15,8 +15,7 @@ import torchaudio
 import audiocraft
 from audiocraft.models import MusicGen
 import tensorflow as tf
-import tkinter
-import customtkinter as ctk
+
 
 
 
@@ -238,11 +237,4 @@ def convert_to_midi_with_max_durartion(column, output_file, velocity_column, dur
     midi_data.instruments.append(instrument)
     midi_data.write(output_file)
     return midi_data, scale_factor, csv_output_path
-
- 
-
-###############
-#####
-############ 
-
 

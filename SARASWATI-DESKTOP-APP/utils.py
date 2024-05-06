@@ -10,9 +10,14 @@ import numpy as np
 import pretty_midi
 import music21
 import os 
+import torch
+import torchaudio
+import audiocraft
+from audiocraft.models import MusicGen
+import tensorflow as tf
 import tkinter as tk
 import customtkinter as ctk
-from tkinter import ttk
+
 
 
 ### 
@@ -129,5 +134,115 @@ def convert_to_midi(column, output_file, velocity_column, duration_column, scale
     midi_data.instruments.append(instrument)
     midi_data.write(output_file)
     return midi_data
+
+### 
+### a function to Convert MIDI to Text
+def midi_to_text(midi_data):
+    text_representation = []
+    for note in midi_data.instruments[0].notes:
+        note_name = pretty_midi.note_number_to_name(note.pitch)
+        start_time = note.start
+        end_time = note.end
+        duration = end_time - start_time
+        text_representation.append(f"Note: {note_name}, Start Time: {start_time}, End Time: {end_time}, Duration: {duration}")
+    return '\n'.join(text_representation)
+
+
+
+### 
+### a function to generate a music sample using musicgen
+def generate_music(description, duration, file_path=None):
+    model = MusicGen.get_pretrained('facebook/musicgen-small')
+    model.set_generation_params(use_sampling=True, top_k=250, duration=duration)
+    output = model.generate(descriptions=[description], progress=True, return_tokens=True)[0]
+    
+    # Check if the output tensor is 3D and adjust it
+    if output.dim() == 3:
+        output = output.squeeze(0)  # Squeeze out the first dimension if it's 3D
+
+    if file_path:
+        torchaudio.save(file_path, output, 32000)  # Assuming the sample rate is 32000 Hz
+    
+    return output
+
+## 
+## A function to create a continuation of the initial audio sample
+
+def continue_music(existing_waveform, continuation_duration, prompt_duration, sample_rate=32000):
+    model = MusicGen.get_pretrained('facebook/musicgen-small')
+    model.set_generation_params(duration=continuation_duration)
+    
+    # Calculate the number of samples to use as the prompt
+    prompt_samples = int(prompt_duration * sample_rate)
+    prompt_waveform = existing_waveform[:, -prompt_samples:]
+    
+    continuation = model.generate_continuation(
+        prompt_waveform,
+        prompt_sample_rate=sample_rate,
+    )
+    
+    return continuation
+
+
+### A function to save the audio sample
+## saving the output 
+
+def save_audio(samples, sample_rate=32000, file_path="output.wav"):
+    if samples.dim() == 3:
+        samples = samples[0]
+    torchaudio.save(file_path, samples, sample_rate)
+
+
+### a function to map midi with a max durartion 
+def convert_to_midi_with_max_durartion(column, output_file, velocity_column, duration_column, scale_name, instrument_name, tempo, reverse_note_mapping, reverse_velocity_mapping, reverse_duration_mapping, lower_limit, upper_limit, max_duration):
+    if scale_name not in scales:
+        raise ValueError(f"Scale '{scale_name}' not found. Please choose from the available scales.")
+    try:
+        instrument_program = pretty_midi.instrument_name_to_program(instrument_name)
+    except KeyError:
+        raise ValueError(f"Instrument '{instrument_name}' not found. Please choose from the available instruments.")
+    
+    midi_data = pretty_midi.PrettyMIDI(initial_tempo=tempo)
+    instrument = pretty_midi.Instrument(program=instrument_program)
+    scale = scales[scale_name]
+    mapped_notes = map_data_to_scale(column, scale, reverse_mapping=reverse_note_mapping)
+    mapped_velocities = map_velocity(velocity_column, reverse_mapping=reverse_velocity_mapping)
+    mapped_durations = map_duration(duration_column, lower_limit=lower_limit, upper_limit=upper_limit, reverse_mapping=reverse_duration_mapping)
+
+    # Mapping CSV generation
+    mapping_data = {
+        'Original_Value': column.tolist(),
+        'Mapped_Note': [pretty_midi.note_number_to_name(int(note)) for note in mapped_notes],
+        'Original_Velocity': velocity_column.tolist(),
+        'Mapped_Velocity': mapped_velocities,
+        'Original_Duration': duration_column.tolist(),
+        'Mapped_Duration': mapped_durations
+    }
+    mapping_df = pd.DataFrame(mapping_data)
+    csv_output_path = output_file.replace('.mid', '_mapping.csv')
+    mapping_df.to_csv(csv_output_path, index=False)
+
+    total_duration = sum(mapped_durations)
+    scale_factor = max_duration / total_duration if total_duration > max_duration else 1
+    scaled_durations = [duration * scale_factor for duration in mapped_durations]
+
+    for i, note_number in enumerate(mapped_notes):
+        note = pretty_midi.Note(
+            velocity=int(mapped_velocities[i]),
+            pitch=int(note_number),
+            start=sum(scaled_durations[:i]),
+            end=sum(scaled_durations[:i + 1])
+        )
+        instrument.notes.append(note)
+
+    midi_data.instruments.append(instrument)
+    midi_data.write(output_file)
+    return midi_data, scale_factor, csv_output_path
+
+ 
+
+###############
+#####
+############ 
 
 
